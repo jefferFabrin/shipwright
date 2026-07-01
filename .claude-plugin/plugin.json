@@ -1,0 +1,11 @@
+{
+  "name": "shipwright",
+  "description": "Autonomous engineering orchestrator: spec-gated, worktree-isolated implement -> QA -> review -> draft PR pipeline with configurable guardrails, risk-weighted rework, and confidence-based escalation. No ticket-tracker required.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Jefferson Fabrin"
+  },
+  "homepage": "https://github.com/jeffersonfabrin/shipwright",
+  "license": "MIT",
+  "keywords": ["engineering", "orchestration", "spec-driven", "code-review", "qa", "autonomous-agents"]
+}
