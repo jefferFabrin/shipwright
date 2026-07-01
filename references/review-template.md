@@ -13,14 +13,15 @@ Rework iteration: <n> / <cap resolved from config + risk>
 |---|---|---|---|---|
 ```
 
-## The 6 dimensions (every finding must be classified into exactly one)
+## The 7 dimensions (every finding must be classified into exactly one)
 
 1. **Critical-path ritual** — independently re-run `/sw-critical-impact` against the diff, don't trust `impl-notes.md`'s claim. HIT without the full extra ritual (see `guardrails.md`) = BLOCKING.
 2. **Scope vs. spec's Out of scope** — any file, import, module, or env var touched outside the spec's stated scope = BLOCKING, no matter how small or well-intentioned.
 3. **Test tampering** — independently re-run the anti-tampering diff and independently re-verify the mutation-check claim, especially on any file that also matches the critical-path table. Do not accept QA's PASS at face value here.
 4. **Cross-cutting drift** — if this project has a known "canonical source + N mirrors" pattern (see `guardrails.md` if one is documented for this project), confirm all copies moved together. Only one copy changing = BLOCKING with a note on which sibling location needs the same edit.
 5. **Correctness** — actual bug hunting: off-by-one, wrong boundary/exclude logic, null/undefined handling, contract mismatches between caller and callee, race conditions in async paths.
-6. **Style / maintainability** — always NON-BLOCKING, *unless* the style problem is severe enough to actually cause a correctness or critical-path issue, in which case reclassify it under dimension 1 or 5 and it inherits that severity.
+6. **Style / maintainability** (`references/code-style.md`: naming, SOLID, comments, nesting) — always NON-BLOCKING, *unless* the style problem is severe enough to actually cause a correctness or critical-path issue, in which case reclassify it under dimension 1 or 5 and it inherits that severity.
+7. **File & folder organization** (`references/file-organization.md`) — coupled responsibility-types (interface/constant/business-rule mixed into one file, a concrete dependency reached for instead of an injected abstraction). **BLOCKING by default**, with a concrete split proposal — unless the coupling predates this ticket and a full split is out of scope, in which case say so explicitly and downgrade to NON-BLOCKING.
 
 ## Verdict routing
 

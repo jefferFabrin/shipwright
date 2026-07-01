@@ -40,8 +40,11 @@ agents/
   sw-reviewer           opus always, read-only, adversarial.
 
 references/            templates + the state schema every command reads/writes against
-  code-style.md         fixed code-quality baseline (naming, SRP, comments, nesting) — ships with
-                        the plugin, applies to every project the same way, NOT project-configurable
+  code-style.md          fixed baseline: naming, full SOLID, comments explain why-never-what
+                         (default none), shallow nesting — ships with the plugin, NOT project-configurable
+  file-organization.md   fixed baseline: one responsibility-type per file (interfaces, constants,
+                         providers, services, controllers never coupled into one "God file") —
+                         also fixed, and BLOCKING at review unlike code-style.md's NON-BLOCKING nits
 ```
 
 ## Quick start
@@ -73,7 +76,8 @@ This project generalizes an internal, team-scale system with the same shape (spe
 | Deploy | Separate, single-provider, hand-authored command with no link back to the ticket | Generic, optional, off by default, results recorded against the ticket's own trail |
 | Mutation testing | Always the manual analytical check | Tries a real tool (Stryker/mutmut/etc.) first, falls back to the same manual check |
 | Approval gate | Universal, non-negotiable, named human approvers | Same by default; optionally auto-approved for narrowly-defined trivial specs, since a solo project's only approver is you anyway |
-| Code-style baseline | `CODE-STYLE.md`, one team-wide doc | Ported faithfully as `references/code-style.md` — same rules (naming reveals intent, one function/one responsibility, comments explain *why* only, shallow nesting via early-return), same NON-BLOCKING-unless-it-causes-a-real-bug severity rule, but shipped as a fixed part of the plugin itself so it's identical across every project instead of living in one workspace's docs |
+| Code-style baseline | `CODE-STYLE.md`, one team-wide doc, SRP only | Ported and expanded as `references/code-style.md` — full SOLID (not just SRP), a harder line on comments ("code reads like a book," explicit forbidden-comment examples), same NON-BLOCKING-unless-it-causes-a-real-bug severity, shipped as a fixed part of the plugin so it's identical across every project |
+| File/folder organization | Not addressed as its own concern | New: `references/file-organization.md` — one responsibility-type per file (interfaces, constants, providers, services, controllers never coupled into a "God file"). Fixed and **BLOCKING** at review by default, since this is precisely the debt an unsupervised implementer tends to accumulate |
 
 ## License
 
